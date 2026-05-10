@@ -2,33 +2,13 @@
 
 This folder contains the files needed to add the random single/dual-band LSKNet recipe to a modern MMSegmentation project that uses MMEngine-style registries, configs, `BaseTransform`, and `SegDataSample`.
 
-## 1. Copy Files
+## 1. Dependency
 
-From this release folder, copy files into the same relative paths in your MMSegmentation repository.
+This release is not a standalone training framework. It depends on an existing MMSegmentation project using the modern MMEngine-style API.
 
-```text
-mmseg/datasets/transforms/random_band_mask.py
-mmseg/models/backbones/LSKNet_Moe.py
-mmseg/models/backbones/extra_module/__init__.py
-mmseg/models/backbones/extra_module/MoE_share.py
-mmseg/models/decode_heads/Unetfeed.py
-mmseg/models/segmentors/joint_encoder_decoder.py
-configs/_base_/datasets/cx_random111.py
-configs/MoE/LSKNet_MoE_cx_random111.py
-```
+Place the released `mmseg/` and `configs/` files under the corresponding paths of your MMSegmentation project. The provided config loads the added modules through `custom_imports`, so editing MMSegmentation `__init__.py` files is not required.
 
-The included config also expects the standard MMSegmentation base configs:
-
-```text
-configs/_base_/default_runtime.py
-configs/_base_/schedules/schedule_160k.py
-```
-
-If your target MMSegmentation repo already has them, you do not need to overwrite them.
-
-## 2. Use With `custom_imports`
-
-The provided config uses `custom_imports`, so editing `__init__.py` files is not required.
+## 2. `custom_imports`
 
 ```python
 custom_imports = dict(
